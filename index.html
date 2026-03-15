@@ -9,15 +9,15 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --ink: #0e0d0b; --paper: #f5f0e8; --sand: #e8dcc8;
-    --rust: #c94f2c; --olive: #4a5c3a; --gold: #c8a84b;
+    --rust: #3a8c5c; --olive: #4a5c3a; --gold: #c8a84b;
     --mist: #8a9ba8; --ida: #2d5a8e; --volta: #8e2d5a;
-    --hell: #b5474a;
+    --hell: #2d7a4f;
   }
   html { scroll-behavior: smooth; }
   body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
 
   .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; background: var(--ink); overflow: hidden; padding: 4rem 2rem; }
-  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(181,71,74,0.2) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 20%, rgba(45,90,142,0.15) 0%, transparent 60%); }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(45,122,79,0.2) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 20%, rgba(45,90,142,0.15) 0%, transparent 60%); }
   .hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; position: relative; }
   .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 16vw, 13rem); line-height: 0.88; color: var(--paper); letter-spacing: -0.02em; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; position: relative; }
   .hero h1 em { font-style: normal; color: var(--hell); }
@@ -58,7 +58,7 @@
   .ticket-link:hover { filter: brightness(0.88); transform: translateY(-1px); }
   .ticket-link::before { content: '🎟'; font-size: 0.75rem; }
   .tl-blue  { background: rgba(45,90,142,0.12); color: var(--ida); border: 1px solid rgba(45,90,142,0.25); }
-  .tl-red   { background: rgba(181,71,74,0.1); color: var(--hell); border: 1px solid rgba(181,71,74,0.25); }
+  .tl-red   { background: rgba(45,122,79,0.1); color: var(--hell); border: 1px solid rgba(45,122,79,0.25); }
   .tl-green { background: rgba(74,92,58,0.1); color: var(--olive); border: 1px solid rgba(74,92,58,0.25); }
   .tl-gold  { background: rgba(200,168,75,0.12); color: #9a7a1a; border: 1px solid rgba(200,168,75,0.3); }
   .tl-purple{ background: rgba(107,76,142,0.1); color: #6b4c8e; border: 1px solid rgba(107,76,142,0.25); }
@@ -70,7 +70,7 @@
   .c-free   { background: var(--gold); }
   .c-ida    { background: var(--ida); }
   .tag-recife { background: rgba(107,76,142,0.12); color: #6b4c8e; }
-  .tag-hell   { background: rgba(181,71,74,0.12); color: var(--hell); }
+  .tag-hell   { background: rgba(45,122,79,0.12); color: var(--hell); }
   .tag-free   { background: rgba(200,168,75,0.15); color: #9a7a1a; }
   .tag-ida    { background: rgba(45,90,142,0.12); color: var(--ida); }
 
@@ -89,6 +89,46 @@
   .ov-place { font-weight: 500; font-size: 0.82rem; }
   .ov-transport { color: #666; font-size: 0.76rem; }
   .ov-cost { text-align: right; font-weight: 500; color: var(--olive); font-size: 0.76rem; }
+
+  /* ===== CHECKLIST ===== */
+  .checklist-section { background: var(--ink); border-radius: 20px; padding: 2.5rem; margin: 4rem 0 2rem; color: var(--paper); }
+  .cl-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .cl-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--gold); letter-spacing: 0.04em; line-height: 1; }
+  .cl-subtitle { font-size: 0.78rem; color: var(--mist); margin-top: 0.4rem; letter-spacing: 0.04em; }
+  .cl-progress-wrap { display: flex; align-items: center; gap: 0.9rem; flex-shrink: 0; }
+  .cl-progress-ring { position: relative; width: 56px; height: 56px; flex-shrink: 0; }
+  .cl-progress-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .ring-bg { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 4; }
+  .ring-fill { fill: none; stroke: var(--gold); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 125.66; stroke-dashoffset: 125.66; transition: stroke-dashoffset 0.6s cubic-bezier(0.4,0,0.2,1); }
+  .ring-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 0.82rem; color: var(--gold); letter-spacing: 0.05em; }
+  .cl-progress-text { font-size: 0.75rem; color: var(--mist); max-width: 80px; line-height: 1.4; }
+  .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 0.75rem; }
+  .cl-item { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem 1.2rem; display: flex; gap: 1rem; align-items: flex-start; cursor: pointer; transition: background 0.2s, border-color 0.2s, transform 0.15s; user-select: none; }
+  .cl-item:hover { background: rgba(255,255,255,0.09); transform: translateY(-1px); }
+  .cl-item.done { background: rgba(200,168,75,0.12); border-color: rgba(200,168,75,0.35); }
+  .cl-item.done .cl-item-title { text-decoration: line-through; opacity: 0.55; }
+  .cl-check { width: 22px; height: 22px; border-radius: 6px; border: 2px solid rgba(255,255,255,0.25); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; transition: background 0.2s, border-color 0.2s; margin-top: 1px; }
+  .cl-item.done .cl-check { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+  .cl-item-body { flex: 1; min-width: 0; }
+  .cl-item-date { font-size: 0.63rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; }
+  .cl-item-title { font-size: 0.85rem; font-weight: 500; line-height: 1.4; color: var(--paper); }
+  .cl-item-detail { font-size: 0.72rem; color: var(--mist); margin-top: 0.25rem; line-height: 1.5; }
+  .cl-item-link { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.68rem; font-weight: 500; margin-top: 0.5rem; color: var(--gold); text-decoration: none; border: 1px solid rgba(200,168,75,0.35); border-radius: 20px; padding: 0.18rem 0.6rem; transition: background 0.15s; }
+  .cl-item-link:hover { background: rgba(200,168,75,0.2); }
+  .cl-item-link::before { content: '↗'; font-size: 0.72rem; }
+  .cl-item-meta { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.3rem; }
+  .cl-travel-date { font-size: 0.62rem; letter-spacing: 0.08em; color: rgba(245,240,232,0.4); }
+  .cl-buybadge { font-size: 0.61rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.12rem 0.55rem; border-radius: 20px; white-space: nowrap; }
+  .badge-fire { background: rgba(220,80,50,0.25); color: #ff8a6a; border: 1px solid rgba(220,80,50,0.4); }
+  .badge-warn { background: rgba(200,168,75,0.2); color: var(--gold); border: 1px solid rgba(200,168,75,0.4); }
+  .badge-ok   { background: rgba(74,180,120,0.15); color: #5ecb8a; border: 1px solid rgba(74,180,120,0.3); }
+  .cl-item.done .cl-buybadge { opacity: 0.35; }
+  .cl-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; justify-content: flex-end; flex-wrap: wrap; }
+  .cl-btn { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; padding: 0.55rem 1.4rem; border-radius: 20px; cursor: pointer; border: 1px solid rgba(200,168,75,0.5); transition: all 0.2s; }
+  .cl-btn-outline { background: transparent; color: var(--gold); }
+  .cl-btn-outline:hover { background: rgba(200,168,75,0.15); }
+  .cl-btn-solid { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+  .cl-btn-solid:hover { filter: brightness(1.12); }
 
   /* Tips */
   .tips-box { background: var(--ink); color: var(--paper); border-radius: 16px; padding: 2.5rem; margin: 4rem 0 2rem; }
@@ -165,7 +205,7 @@
   <div class="ov-cols ov-row" onclick="goTo('d28')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>28/06 Dom</span><span class="ov-place">🇨🇿 Praga — 1 noite</span><span class="ov-transport">FlixBus/trem Berlim→Praga (~4h30)</span><span class="ov-cost">€15–30</span></div>
   <div class="ov-cols ov-row" onclick="goTo('d29')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>29/06 Seg</span><span class="ov-place">🇵🇱 Cracóvia — 1 noite</span><span class="ov-transport">RegioJet Praga→Cracóvia (~7h)</span><span class="ov-cost">€12–25</span></div>
   <div class="ov-cols ov-row" onclick="goTo('d30')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>30/06 Ter</span><span class="ov-place">🇭🇺 Budapeste — 1 dia</span><span class="ov-transport">Trem noturno Cracóvia→Budapeste (~10h)</span><span class="ov-cost">€20–35</span></div>
-  <div class="ov-cols ov-row" onclick="goTo('d01')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>01/07 Qua</span><span class="ov-place">🇧🇬 Sofia — chegada</span><span class="ov-transport">Ônibus noturno direto Budapeste→Sofia (~13h)</span><span class="ov-cost">€30–50</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d01')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>01/07 Qua</span><span class="ov-place">🇧🇬 Sofia — chegada</span><span class="ov-transport">✈️ Ryanair BUD→SOF 21:40 seg (1h25) — chega ~23h</span><span class="ov-cost">€25–55</span></div>
 </div>
 
 <!-- ===== 17 JUN ===== -->
@@ -467,20 +507,21 @@
   <div class="day-body">
     <div class="day-header"><span class="day-title">🇭🇺 Budapeste — 1 dia</span><span class="day-tag tag-ida">Ter · Ida</span></div>
     <div class="day-transport">🌙 Trem noturno Cracóvia→Budapeste — ~10h · comprar no MAV (jegy.mav.hu) ou Trainline</div>
-    <p class="day-desc">Chega de manhã com o dia inteiro. Fisherman's Bastion e Buda Castle cedo. À tarde, thermal spa Széchenyi ou Rudas (~€15–20). À noite, ônibus noturno para Sofia. <strong>Atenção ao dia da semana:</strong> o Citylines opera BUD→SOF nas terças (dia certo!), chegando em Sofia na manhã de quarta. Verifique horários no site deles.</p>
+    <p class="day-desc">Chega de manhã com o dia inteiro em Budapeste. Fisherman's Bastion e Buda Castle cedo. À tarde, thermal spa Széchenyi ou Rudas (~€15–20). Janta bem — depois pega o metrô até o aeroporto BUD e embarca no <strong>Ryanair FR5571 às 21:40</strong>, chegando em Sofia ~23:05 (hora local). Muito melhor que 13h de ônibus pela Sérvia de madrugada.</p>
     <div class="highlights">
       <span class="highlight">🏰 Buda Castle + Fisherman's Bastion</span>
       <span class="highlight">♨️ Thermal Spa (~€15–20)</span>
-      <span class="highlight">🌙 Ônibus Citylines para Sofia (terça)</span>
+      <span class="highlight">✈️ Ryanair FR5571 — BUD 21:40 → SOF ~23:05</span>
+      <span class="highlight">🕙 Aeroporto BUD: chegue ~19:30</span>
     </div>
     <div class="tickets">
-      <span class="tickets-label">Onde comprar passagem — trem noturno Cracóvia→Budapeste</span>
+      <span class="tickets-label">Onde comprar — trem noturno Cracóvia→Budapeste</span>
       <a class="ticket-link tl-red" href="https://jegy.mav.hu" target="_blank" rel="noopener">MÁV (ferroviária húngara)</a>
       <a class="ticket-link tl-gold" href="https://www.thetrainline.com/train-times/krakow-to-budapest" target="_blank" rel="noopener">Trainline</a>
       <a class="ticket-link tl-blue" href="https://www.omio.com/trains/krakow/budapest" target="_blank" rel="noopener">Omio</a>
-      <span class="tickets-label" style="margin-top:0.5rem">Onde comprar — ônibus noturno Budapeste→Sofia</span>
-      <a class="ticket-link tl-green" href="https://www.citylines.eu/en/timetable/budapest-sofia" target="_blank" rel="noopener">Citylines (terças)</a>
-      <a class="ticket-link tl-green" href="https://www.flixbus.com/bus/budapest-sofia" target="_blank" rel="noopener">FlixBus (sex/dom)</a>
+      <span class="tickets-label" style="margin-top:0.5rem">Onde comprar — ✈️ Ryanair BUD→SOF (seg 29/06, 21:40)</span>
+      <a class="ticket-link tl-red" href="https://www.ryanair.com/pt/pt/flights/budapest-sofia" target="_blank" rel="noopener">Ryanair.com (FR5571)</a>
+      <a class="ticket-link tl-gold" href="https://www.skyscanner.com.br/voos/bud/sof/" target="_blank" rel="noopener">Skyscanner (comparar)</a>
     </div>
   </div>
 </div>
@@ -494,9 +535,9 @@
   <div class="day-num"><div class="day-circle c-ida">01</div></div>
   <div class="day-body">
     <div class="day-header"><span class="day-title">🇧🇬 Sofia — chegada</span><span class="day-tag tag-ida">Qua</span></div>
-    <p class="day-desc">Chegada de manhã em Sofia diretamente de Budapeste — acorda na capital búlgara. A partir daqui, a programação na Bulgária é por sua conta! Sofia, Plovdiv, o Mosteiro de Rila (UNESCO) e Veliko Tarnovo são os destaques que já estávamos planejando. O Free Sofia Tour sai às 11h e 18h todo dia — ótimo ponto de partida. Banitsa (€1) e Zagorka gelada para receber a Bulgária.</p>
+    <p class="day-desc">Chegada à noite em Sofia de avião (Ryanair ~23:05) — já na capital búlgara! Check-in no hostel, dormir. A partir de amanhã, a programação na Bulgária é por sua conta! Sofia, Plovdiv, o Mosteiro de Rila (UNESCO) e Veliko Tarnovo são os destaques que já estávamos planejando. O Free Sofia Tour sai às 11h e 18h todo dia — ótimo ponto de partida. Banitsa (€1) e Zagorka gelada para receber a Bulgária.</p>
     <div class="highlights">
-      <span class="highlight">🌙 Chegada de ônibus noturno</span>
+      <span class="highlight">✈️ Chegada noturna (~23:05) — Ryanair</span>
       <span class="highlight">⛪ Alexander Nevski (grátis)</span>
       <span class="highlight">🏛️ Ruínas de Serdica</span>
       <span class="highlight">🚶 Free Sofia Tour (11h ou 18h)</span>
@@ -511,6 +552,28 @@
     </div>
   </div>
 </div>
+</div>
+
+<!-- ===== CHECKLIST DE PASSAGENS ===== -->
+<div class="checklist-section" id="checklist">
+  <div class="cl-header">
+    <div>
+      <h2 class="cl-title">🎟️ Checklist de Passagens</h2>
+      <p class="cl-subtitle">Marque conforme for comprando — salvo automaticamente no seu navegador</p>
+    </div>
+    <div class="cl-progress-wrap">
+      <div class="cl-progress-ring">
+        <svg viewBox="0 0 48 48"><circle class="ring-bg" cx="24" cy="24" r="20"/><circle class="ring-fill" id="ringFill" cx="24" cy="24" r="20"/></svg>
+        <span class="ring-label" id="ringLabel">0/0</span>
+      </div>
+      <span class="cl-progress-text" id="progressText">Nenhum comprado</span>
+    </div>
+  </div>
+  <div class="cl-grid" id="clGrid"></div>
+  <div class="cl-actions">
+    <button class="cl-btn cl-btn-outline" onclick="resetChecklist()">↺ Resetar tudo</button>
+    <button class="cl-btn cl-btn-solid" onclick="markAll()">✓ Marcar todos</button>
+  </div>
 </div>
 
 <!-- TIPS -->
@@ -534,8 +597,8 @@
       <div class="tip-text">O noturno Cracóvia→Budapeste economiza uma noite de hostel (~€15–25). Compre no MÁV (jegy.mav.hu) com antecedência — os preços baixos somem rápido neste trecho.</div>
     </div>
     <div class="tip-item">
-      <div class="tip-title">🇧🇬 BUD→SOF terça-feira</div>
-      <div class="tip-text">Você chega a Budapeste na terça 30/06. O Citylines opera BUD→SOF nas terças. Verifique e reserve no citylines.eu com antecedência — são poucos ônibus por semana e enchem.</div>
+      <div class="tip-title">✈️ Ryanair BUD→SOF — seg 29/06</div>
+      <div class="tip-text">Voo FR5571 às 21:40, chegada ~23:05 em Sofia. Muito melhor que 13h de ônibus pela Sérvia. Reserve em ryanair.com com antecedência — preços de €25–55. Saia de Budapeste para o aeroporto por volta das 19:30 (metrô M3 até Kőbánya-Kispest + ônibus 200E).</div>
     </div>
     <div class="tip-item">
       <div class="tip-title">🎟️ Amsterdã — reserve antes</div>
@@ -548,6 +611,244 @@
 <footer>Roteiro elaborado para junho–julho de 2026 · Preços estimados · Verifique sempre horários e disponibilidade antes de comprar</footer>
 
 <script>
+  // ===== CHECKLIST DE PASSAGENS =====
+  const CHECKLIST_KEY = 'mottriz_europa_2026_checklist';
+
+  // urgency: 'fire' = comprar AGORA, 'warn' = comprar em breve, 'ok' = pode esperar um pouco
+  const TICKETS = [
+    {
+      id: 'hellfest_18',
+      travelDate: '18 Jun 2026',
+      buyBy: 'Comprar AGORA',
+      buyByDate: '2026-03-20',
+      urgency: 'fire',
+      emoji: '🤘',
+      title: 'Ingresso Hellfest — Dia 1 (qui 18/06)',
+      detail: 'BMTH headlining. Revenda oficial já aberta — esgota rápido. ~€70–100',
+      url: 'https://tickets.hellfest.fr',
+      urlLabel: 'tickets.hellfest.fr',
+    },
+    {
+      id: 'hellfest_21',
+      travelDate: '21 Jun 2026',
+      buyBy: 'Comprar AGORA',
+      buyByDate: '2026-03-20',
+      urgency: 'fire',
+      emoji: '🤘',
+      title: 'Ingresso Hellfest — Dia Final (dom 21/06)',
+      detail: 'The Offspring headlining. Revenda oficial já aberta — esgota rápido. ~€70–100',
+      url: 'https://tickets.hellfest.fr',
+      urlLabel: 'tickets.hellfest.fr',
+    },
+
+    {
+      id: 'ryanair_bud_sof',
+      travelDate: '29 Jun 2026 — 21:40',
+      buyBy: 'Até 31 Mar 2026',
+      buyByDate: '2026-03-31',
+      urgency: 'fire',
+      emoji: '✈️',
+      title: 'Ryanair BUD → SOF — FR5571 (21:40)',
+      detail: 'Seg 29/06, 21:40 → Sofia ~23:05. Preço sobe perto da data. Reservar agora: ~€25–35',
+      url: 'https://www.ryanair.com/pt/pt/flights/budapest-sofia',
+      urlLabel: 'ryanair.com',
+    },
+    {
+      id: 'noturno_krk_bud',
+      travelDate: '29→30 Jun 2026',
+      buyBy: 'Até 30 Abr 2026',
+      buyByDate: '2026-04-30',
+      urgency: 'warn',
+      emoji: '🌙',
+      title: 'Trem noturno Cracóvia → Budapeste',
+      detail: 'EuroNight ~10h. Reservar couchette 4 lug ou sleeper duplo. Abre 60 dias antes (pol.)',
+      url: 'https://jegy.mav.hu',
+      urlLabel: 'jegy.mav.hu (MÁV)',
+    },
+    {
+      id: 'ouigo_paris_nantes',
+      travelDate: '18 Jun 2026',
+      buyBy: 'Até 30 Abr 2026',
+      buyByDate: '2026-04-30',
+      urgency: 'warn',
+      emoji: '🚄',
+      title: 'OUIGO Paris → Nantes',
+      detail: 'TGV low-cost — desde €15 reservando cedo. Preço sobe muito perto da data',
+      url: 'https://www.ouigo.com/billetterie/o/paris/nantes',
+      urlLabel: 'ouigo.com',
+    },
+    {
+      id: 'trem_nantes_bxl',
+      travelDate: '22 Jun 2026',
+      buyBy: 'Até 30 Abr 2026',
+      buyByDate: '2026-04-30',
+      urgency: 'warn',
+      emoji: '🚄',
+      title: 'Trem Nantes → Bruxelas',
+      detail: 'Direto ~5h. ~€40–80. Reservar com antecedência no SNCF Connect',
+      url: 'https://www.sncf-connect.com/app/en-EN/search?originLabel=Nantes&destinationLabel=Bruxelles-Midi',
+      urlLabel: 'SNCF Connect',
+    },
+    {
+      id: 'eurostar_bxl_ams',
+      travelDate: '24 Jun 2026',
+      buyBy: 'Até 30 Abr 2026',
+      buyByDate: '2026-04-30',
+      urgency: 'warn',
+      emoji: '🚄',
+      title: 'Eurostar Bruxelas → Amsterdã',
+      detail: 'Direto ~1h50. ~€20–40. Preços mais baixos aparecem 90+ dias antes',
+      url: 'https://www.eurostar.com/rw-en/train/belgium/brussels-to-netherlands/amsterdam',
+      urlLabel: 'eurostar.com',
+    },
+    {
+      id: 'ice_ams_ber',
+      travelDate: '26 Jun 2026',
+      buyBy: 'Até 30 Abr 2026',
+      buyByDate: '2026-04-30',
+      urgency: 'warn',
+      emoji: '🚄',
+      title: 'ICE Amsterdã → Berlim',
+      detail: 'Deutsche Bahn ~6h. ~€25–50. Super Sparpreis some logo que abre (180 dias antes)',
+      url: 'https://www.bahn.de/buchung/start#sts=true&so=Amsterdam%20Centraal&zo=Berlin%20Hbf&kl=2&r=13:16:KLASSENLOS:1',
+      urlLabel: 'Deutsche Bahn',
+    },
+    {
+      id: 'rijksmuseum',
+      travelDate: '25 Jun 2026',
+      buyBy: 'Até 31 Mai 2026',
+      buyByDate: '2026-05-31',
+      urgency: 'warn',
+      emoji: '🎨',
+      title: 'Rijksmuseum — Amsterdã',
+      detail: 'Esgota semanas antes em junho/julho. Reservar online — sem entrada no dia',
+      url: 'https://www.rijksmuseum.nl/en/plan-your-visit',
+      urlLabel: 'rijksmuseum.nl',
+    },
+    {
+      id: 'vangogh',
+      travelDate: '25 Jun 2026',
+      buyBy: 'Até 31 Mai 2026',
+      buyByDate: '2026-05-31',
+      urgency: 'warn',
+      emoji: '🎨',
+      title: 'Van Gogh Museum — Amsterdã',
+      detail: 'Sem venda na porta — só online. Esgota com semanas de antecedência em alta temporada',
+      url: 'https://www.vangoghmuseum.nl/en/visit/tickets-and-opening-hours',
+      urlLabel: 'vangoghmuseum.nl',
+    },
+    {
+      id: 'ter_nantes_clisson',
+      travelDate: '18 Jun 2026',
+      buyBy: 'Até 01 Jun 2026',
+      buyByDate: '2026-06-01',
+      urgency: 'ok',
+      emoji: '🚆',
+      title: 'TER Nantes → Clisson (Hellfest)',
+      detail: '~30min, ~€5–10. Pode comprar mais próximo da data — trem regional',
+      url: 'https://www.sncf-connect.com/app/en-EN/search?originLabel=Nantes&destinationLabel=Clisson',
+      urlLabel: 'SNCF Connect',
+    },
+    {
+      id: 'flixbus_ber_prg',
+      travelDate: '28 Jun 2026',
+      buyBy: 'Até 01 Jun 2026',
+      buyByDate: '2026-06-01',
+      urgency: 'ok',
+      emoji: '🚌',
+      title: 'FlixBus Berlim → Praga',
+      detail: '~4h30. Desde €5–20. FlixBus não esgota rápido mas preço sobe perto da data',
+      url: 'https://www.flixbus.com/bus/berlin-to-prague',
+      urlLabel: 'flixbus.com',
+    },
+    {
+      id: 'regiojet_prg_krk',
+      travelDate: '29 Jun 2026',
+      buyBy: 'Até 01 Jun 2026',
+      buyByDate: '2026-06-01',
+      urgency: 'ok',
+      emoji: '🚌',
+      title: 'RegioJet Praga → Cracóvia',
+      detail: '~7h, wi-fi + café. ~€12–25. Reservar com 4+ semanas para garantir assento bom',
+      url: 'https://regiojet.com/tickets/search?fromLocationId=372825000&fromLocationType=CITY&toLocationId=475567000&toLocationType=CITY',
+      urlLabel: 'regiojet.com',
+    },
+  ];
+
+  function loadState() {
+    try {
+      return JSON.parse(localStorage.getItem(CHECKLIST_KEY) || '{}');
+    } catch { return {}; }
+  }
+
+  function saveState(state) {
+    try { localStorage.setItem(CHECKLIST_KEY, JSON.stringify(state)); } catch {}
+  }
+
+  function updateProgress(state) {
+    const total = TICKETS.length;
+    const done = TICKETS.filter(t => state[t.id]).length;
+    const pct = total ? done / total : 0;
+    const circumference = 125.66;
+    document.getElementById('ringFill').style.strokeDashoffset = circumference * (1 - pct);
+    document.getElementById('ringLabel').textContent = `${done}/${total}`;
+    const texts = ['Nenhum comprado', 'Começando...', 'Indo bem!', 'Quase lá!', 'Tudo comprado! 🎉'];
+    const idx = done === 0 ? 0 : done === total ? 4 : pct < 0.33 ? 1 : pct < 0.66 ? 2 : 3;
+    document.getElementById('progressText').textContent = texts[idx];
+  }
+
+  function badgeHtml(t) {
+    const icons = { fire: '🔥', warn: '⚠️', ok: '✓' };
+    return `<span class="cl-buybadge badge-${t.urgency}">${icons[t.urgency]} Comprar: ${t.buyBy}</span>`;
+  }
+
+  function renderChecklist() {
+    const state = loadState();
+    const grid = document.getElementById('clGrid');
+    grid.innerHTML = TICKETS.map(t => `
+      <div class="cl-item${state[t.id] ? ' done' : ''}" onclick="toggleItem('${t.id}')" id="clitem-${t.id}">
+        <div class="cl-check">${state[t.id] ? '✓' : ''}</div>
+        <div class="cl-item-body">
+          <div class="cl-item-meta">
+            ${badgeHtml(t)}
+            <span class="cl-travel-date">viagem: ${t.travelDate}</span>
+          </div>
+          <div class="cl-item-title">${t.emoji} ${t.title}</div>
+          <div class="cl-item-detail">${t.detail}</div>
+          <a class="cl-item-link" href="${t.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${t.urlLabel}</a>
+        </div>
+      </div>
+    `).join('');
+    updateProgress(state);
+  }
+
+  function toggleItem(id) {
+    const state = loadState();
+    state[id] = !state[id];
+    saveState(state);
+    const el = document.getElementById(`clitem-${id}`);
+    el.classList.toggle('done', state[id]);
+    el.querySelector('.cl-check').textContent = state[id] ? '✓' : '';
+    updateProgress(state);
+  }
+
+  function resetChecklist() {
+    if (!confirm('Resetar todos os itens do checklist?')) return;
+    saveState({});
+    renderChecklist();
+  }
+
+  function markAll() {
+    const state = {};
+    TICKETS.forEach(t => state[t.id] = true);
+    saveState(state);
+    renderChecklist();
+  }
+
+  renderChecklist();
+
+  // ===== fim checklist =====
+
   function goTo(id) {
     const el = document.getElementById(id);
     if (!el) return;
