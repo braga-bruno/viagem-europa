@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roteiro Europa — Junho/Julho 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0e0d0b; --paper: #f5f0e8; --sand: #e8dcc8;
+    --rust: #c94f2c; --olive: #4a5c3a; --gold: #c8a84b;
+    --mist: #8a9ba8; --ida: #2d5a8e; --volta: #8e2d5a;
+    --hell: #b5474a;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+
+  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; background: var(--ink); overflow: hidden; padding: 4rem 2rem; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(181,71,74,0.2) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 20%, rgba(45,90,142,0.15) 0%, transparent 60%); }
+  .hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; position: relative; }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 16vw, 13rem); line-height: 0.88; color: var(--paper); letter-spacing: -0.02em; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; position: relative; }
+  .hero h1 em { font-style: normal; color: var(--hell); }
+  .hero-sub { margin-top: 2rem; font-size: 0.95rem; color: var(--mist); letter-spacing: 0.04em; max-width: 480px; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; position: relative; }
+  .hero-stats { display: flex; gap: 3rem; margin-top: 3rem; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; position: relative; }
+  .stat { text-align: center; }
+  .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--gold); line-height: 1; }
+  .stat-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mist); margin-top: 0.25rem; }
+  .scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.4rem; color: var(--mist); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0; animation: fadeIn 1s 1.4s forwards; }
+  .scroll-line { width: 1px; height: 36px; background: linear-gradient(to bottom, var(--mist), transparent); animation: grow 1.5s 1.4s ease-in-out infinite; }
+
+  .legend { background: var(--sand); padding: 1.5rem 2rem; display: flex; gap: 1.5rem 2rem; justify-content: center; flex-wrap: wrap; border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); }
+  .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 500; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+  .timeline { max-width: 920px; margin: 0 auto; padding: 4rem 2rem; }
+  .section-label { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; letter-spacing: 0.04em; line-height: 1; margin-bottom: 0.25rem; scroll-margin-top: 20px; }
+  .section-desc { font-size: 0.82rem; color: #666; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2.5rem; padding-bottom: 0.9rem; border-bottom: 1px solid rgba(0,0,0,0.12); }
+
+  .day-card { display: grid; grid-template-columns: 76px 1fr; gap: 0 1.8rem; margin-bottom: 2.2rem; position: relative; scroll-margin-top: 20px; }
+  .day-card::before { content: ''; position: absolute; left: 37px; top: 54px; bottom: -2.2rem; width: 2px; background: var(--sand); }
+  .last-in-section::before { display: none; }
+  .day-num { display: flex; flex-direction: column; align-items: center; padding-top: 0.35rem; position: relative; }
+  .day-circle { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 0.88rem; color: white; flex-shrink: 0; position: relative; z-index: 1; }
+  .day-body { background: white; border-radius: 12px; padding: 1.3rem 1.5rem; border: 1px solid rgba(0,0,0,0.07); box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s; }
+  .day-body:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
+  .day-header { display: flex; align-items: baseline; gap: 0.8rem; margin-bottom: 0.7rem; flex-wrap: wrap; }
+  .day-title { font-family: 'DM Serif Display', serif; font-size: 1.3rem; line-height: 1.2; }
+  .day-tag { font-size: 0.63rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.18rem 0.65rem; border-radius: 20px; white-space: nowrap; }
+  .day-transport { display: flex; align-items: flex-start; gap: 0.4rem; font-size: 0.71rem; font-weight: 500; color: #666; background: var(--sand); border-radius: 6px; padding: 0.28rem 0.65rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
+  .day-desc { font-size: 0.87rem; line-height: 1.72; color: #333; }
+  .highlights { margin-top: 0.85rem; display: flex; flex-wrap: wrap; gap: 0.38rem; }
+  .highlight { font-size: 0.71rem; padding: 0.18rem 0.55rem; background: var(--paper); border: 1px solid var(--sand); border-radius: 4px; color: #555; }
+
+  /* Ticket links block */
+  .tickets { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.9rem; border-top: 1px dashed var(--sand); }
+  .ticket-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; font-weight: 500; padding: 0.3rem 0.75rem 0.3rem 0.6rem; border-radius: 20px; text-decoration: none; transition: filter 0.15s, transform 0.15s; white-space: nowrap; }
+  .ticket-link:hover { filter: brightness(0.88); transform: translateY(-1px); }
+  .ticket-link::before { content: '🎟'; font-size: 0.75rem; }
+  .tl-blue  { background: rgba(45,90,142,0.12); color: var(--ida); border: 1px solid rgba(45,90,142,0.25); }
+  .tl-red   { background: rgba(181,71,74,0.1); color: var(--hell); border: 1px solid rgba(181,71,74,0.25); }
+  .tl-green { background: rgba(74,92,58,0.1); color: var(--olive); border: 1px solid rgba(74,92,58,0.25); }
+  .tl-gold  { background: rgba(200,168,75,0.12); color: #9a7a1a; border: 1px solid rgba(200,168,75,0.3); }
+  .tl-purple{ background: rgba(107,76,142,0.1); color: #6b4c8e; border: 1px solid rgba(107,76,142,0.25); }
+  .tickets-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #aaa; width: 100%; margin-bottom: 0.1rem; }
+
+  /* Colors */
+  .c-recife { background: #6b4c8e; }
+  .c-hell   { background: var(--hell); }
+  .c-free   { background: var(--gold); }
+  .c-ida    { background: var(--ida); }
+  .tag-recife { background: rgba(107,76,142,0.12); color: #6b4c8e; }
+  .tag-hell   { background: rgba(181,71,74,0.12); color: var(--hell); }
+  .tag-free   { background: rgba(200,168,75,0.15); color: #9a7a1a; }
+  .tag-ida    { background: rgba(45,90,142,0.12); color: var(--ida); }
+
+  /* Overview */
+  .overview { background: white; border-radius: 16px; overflow: hidden; border: 1px solid var(--sand); margin-bottom: 3rem; box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+  .overview-header { background: var(--ink); color: var(--paper); padding: 1rem 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 0.1em; display: flex; align-items: center; justify-content: space-between; }
+  .overview-hint { font-family: 'DM Sans', sans-serif; font-size: 0.68rem; font-weight: 300; color: var(--mist); }
+  .ov-cols { display: grid; grid-template-columns: 80px 1fr 1fr 85px; padding: 0.6rem 1.5rem; border-bottom: 1px solid var(--sand); font-size: 0.8rem; align-items: center; gap: 0.8rem; }
+  .ov-cols:last-child { border-bottom: none; }
+  .ov-head { background: var(--paper); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #999; }
+  .ov-row { cursor: pointer; transition: background 0.15s; }
+  .ov-row:hover { background: #f2ede3; }
+  .ov-row:hover .ov-place { text-decoration: underline; text-decoration-thickness: 1px; }
+  .ov-day { font-size: 0.72rem; color: #888; display: flex; align-items: center; gap: 5px; }
+  .ov-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .ov-place { font-weight: 500; font-size: 0.82rem; }
+  .ov-transport { color: #666; font-size: 0.76rem; }
+  .ov-cost { text-align: right; font-weight: 500; color: var(--olive); font-size: 0.76rem; }
+
+  /* Tips */
+  .tips-box { background: var(--ink); color: var(--paper); border-radius: 16px; padding: 2.5rem; margin: 4rem 0 2rem; }
+  .tips-box h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--gold); margin-bottom: 1.5rem; letter-spacing: 0.04em; }
+  .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.4rem; }
+  .tip-item { border-left: 2px solid var(--hell); padding-left: 1rem; }
+  .tip-title { font-weight: 500; font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.35rem; }
+  .tip-text { font-size: 0.8rem; line-height: 1.65; color: rgba(245,240,232,0.72); }
+
+  /* Floating button */
+  #backBtn { position: fixed; bottom: 1.75rem; right: 1.75rem; width: 46px; height: 46px; background: var(--ink); color: var(--paper); border: 2px solid rgba(255,255,255,0.15); border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.3); opacity: 0; transform: translateY(12px) scale(0.9); transition: opacity 0.3s, transform 0.3s, background 0.2s; pointer-events: none; z-index: 9999; }
+  #backBtn.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+  #backBtn:hover { background: var(--hell); border-color: transparent; }
+
+  footer { text-align: center; padding: 3rem 2rem; font-size: 0.73rem; color: #999; letter-spacing: 0.1em; border-top: 1px solid var(--sand); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes grow { 0%,100% { transform: scaleY(1); opacity: 0.5; } 50% { transform: scaleY(1.3); opacity: 1; } }
+
+  @media (max-width: 600px) {
+    .day-card { grid-template-columns: 48px 1fr; gap: 0 1rem; }
+    .day-card::before { left: 23px; }
+    .ov-cols { grid-template-columns: 58px 1fr; }
+    .ov-transport, .ov-cost { display: none; }
+    .hero-stats { gap: 1.8rem; }
+    .overview-hint { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<button id="backBtn" aria-label="Voltar ao cronograma">↑</button>
+
+<section class="hero">
+  <p class="hero-eyebrow">☛ Roteiro de Viagem · Junho–Julho 2026</p>
+  <h1>HELL<em>FEST</em><br>& EUROPA</h1>
+  <p class="hero-sub">Recife → Paris → Hellfest → Bruxelas → Sofia<br>Do metal extremo às ruínas romanas dos Bálcãs</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-number">17/06</div><div class="stat-label">Partida</div></div>
+    <div class="stat"><div class="stat-number">9</div><div class="stat-label">Países</div></div>
+    <div class="stat"><div class="stat-number">15</div><div class="stat-label">Trechos</div></div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div>role abaixo</div>
+</section>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#6b4c8e"></div> Recife → Paris</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--hell)"></div> Hellfest</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div> Dias livres</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--ida)"></div> Ida (Bruxelas → Sofia)</div>
+</div>
+
+<div class="timeline">
+
+<!-- CRONOGRAMA -->
+<div class="overview" id="cronograma">
+  <div class="overview-header">
+    <span>📋 Cronograma — Clique para navegar</span>
+    <span class="overview-hint">↗ clique em qualquer linha</span>
+  </div>
+  <div class="ov-cols ov-head"><span>Data</span><span>Destino</span><span>Como ir / O quê</span><span style="text-align:right">Custo</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d17')"><span class="ov-day"><span class="ov-dot" style="background:#6b4c8e"></span>17/06 Qua</span><span class="ov-place">✈️ Recife → Paris</span><span class="ov-transport">Voo + 1 noite hostel em Paris</span><span class="ov-cost">—</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d18')"><span class="ov-day"><span class="ov-dot" style="background:var(--hell)"></span>18/06 Qui</span><span class="ov-place">🤘 Paris → Hellfest Dia 1</span><span class="ov-transport">OUIGO/TGV Paris→Nantes + TER→Clisson</span><span class="ov-cost">€19–41</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d19')"><span class="ov-day"><span class="ov-dot" style="background:var(--gold)"></span>19/06 Sex</span><span class="ov-place">🇫🇷 Nantes — dia livre</span><span class="ov-transport">Les Machines de l'Île + Linha Verde</span><span class="ov-cost">€4–13</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d20')"><span class="ov-day"><span class="ov-dot" style="background:var(--gold)"></span>20/06 Sáb</span><span class="ov-place">🇫🇷 Saint-Nazaire / La Baule</span><span class="ov-transport">TER Clisson→Saint-Nazaire (~1h)</span><span class="ov-cost">€10–15</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d21')"><span class="ov-day"><span class="ov-dot" style="background:var(--hell)"></span>21/06 Dom</span><span class="ov-place">🤘 Hellfest — Dia Final</span><span class="ov-transport">The Offspring headlining!</span><span class="ov-cost">—</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d22')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>22/06 Seg</span><span class="ov-place">🇧🇪 Bruxelas — chegada</span><span class="ov-transport">Trem direto Nantes→Bruxelas (~5h)</span><span class="ov-cost">€40–80</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d23')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>23/06 Ter</span><span class="ov-place">🇧🇪 Bruxelas — dia livre</span><span class="ov-transport">Grand-Place, BD, cerveja belga</span><span class="ov-cost">—</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d24')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>24/06 Qua</span><span class="ov-place">🇳🇱 Amsterdã — chegada</span><span class="ov-transport">Eurostar Bruxelas→Amsterdã (~1h50)</span><span class="ov-cost">€20–40</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d25')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>25/06 Qui</span><span class="ov-place">🇳🇱 Amsterdã — dia livre</span><span class="ov-transport">Rijksmuseum, canais, Jordaan</span><span class="ov-cost">—</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d26')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>26/06 Sex</span><span class="ov-place">🇩🇪 Berlim — chegada</span><span class="ov-transport">ICE Amsterdã→Berlim (~6h)</span><span class="ov-cost">€25–50</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d27')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>27/06 Sáb</span><span class="ov-place">🇩🇪 Berlim — dia livre</span><span class="ov-transport">East Side Gallery, Mauerpark, Döner</span><span class="ov-cost">—</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d28')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>28/06 Dom</span><span class="ov-place">🇨🇿 Praga — 1 noite</span><span class="ov-transport">FlixBus/trem Berlim→Praga (~4h30)</span><span class="ov-cost">€15–30</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d29')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>29/06 Seg</span><span class="ov-place">🇵🇱 Cracóvia — 1 noite</span><span class="ov-transport">RegioJet Praga→Cracóvia (~7h)</span><span class="ov-cost">€12–25</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d30')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>30/06 Ter</span><span class="ov-place">🇭🇺 Budapeste — 1 dia</span><span class="ov-transport">Trem noturno Cracóvia→Budapeste (~10h)</span><span class="ov-cost">€20–35</span></div>
+  <div class="ov-cols ov-row" onclick="goTo('d01')"><span class="ov-day"><span class="ov-dot" style="background:var(--ida)"></span>01/07 Qua</span><span class="ov-place">🇧🇬 Sofia — chegada</span><span class="ov-transport">Ônibus noturno direto Budapeste→Sofia (~13h)</span><span class="ov-cost">€30–50</span></div>
+</div>
+
+<!-- ===== 17 JUN ===== -->
+<div id="d17">
+<div class="section-label" style="color:#6b4c8e">17 Jun — Quarta</div>
+<div class="section-desc">Recife → Paris · Decolagem</div>
+<div class="day-card last-in-section">
+  <div class="day-num"><div class="day-circle c-recife">17</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">✈️ Recife → Paris</span><span class="day-tag tag-recife">Partida</span></div>
+    <p class="day-desc">Decolagem de Recife (REC). O caminho mais comum é conexão em Lisboa com TAP (~11–13h total) — é a melhor opção pois Lisboa→Paris é direto e frequente. Alternativa: via São Paulo com LATAM ou Air France. Chegando em Paris CDG, o RER B leva direto ao centro em ~35min (~€12). Hostel no 10° ou 11° arrondissement — Canal Saint-Martin, mais autêntico e barato que o Marais. Jantar leve, dormir cedo.</p>
+    <div class="highlights">
+      <span class="highlight">✈️ TAP via Lisboa · melhor opção</span>
+      <span class="highlight">🚆 RER B: CDG→Paris centro (~€12)</span>
+      <span class="highlight">🏨 Hostel no 10° ou 11° arr.</span>
+      <span class="highlight">🌙 Canal Saint-Martin (a pé)</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Onde comprar passagem</span>
+      <a class="ticket-link tl-purple" href="https://www.tap.pt" target="_blank" rel="noopener">TAP Air Portugal</a>
+      <a class="ticket-link tl-purple" href="https://www.latamairlines.com/br/pt" target="_blank" rel="noopener">LATAM Airlines</a>
+      <a class="ticket-link tl-blue" href="https://www.google.com/travel/flights/search?q=voos+recife+paris" target="_blank" rel="noopener">Google Flights (comparar)</a>
+      <a class="ticket-link tl-gold" href="https://www.skyscanner.com.br/voos/rec/par/" target="_blank" rel="noopener">Skyscanner</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== 18 JUN ===== -->
+<div id="d18">
+<div class="section-label" style="color:var(--hell)">18 Jun — Quinta</div>
+<div class="section-desc">Paris → Nantes → Clisson · Hellfest Dia 1</div>
+<div class="day-card last-in-section">
+  <div class="day-num"><div class="day-circle c-hell">18</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🎸 Paris → Hellfest</span><span class="day-tag tag-hell">Dia 1</span></div>
+    <div class="day-transport">🚄 OUIGO/TGV Paris Montparnasse→Nantes (~2h15) + 🚆 TER Nantes→Clisson (~20min)</div>
+    <p class="day-desc">Saída cedo de Paris Montparnasse. <strong>OUIGO é muito mais barato que o TGV</strong> — desde €15 reservando com antecedência vs €40+ no TGV. De Nantes, TER regional direto para Clisson em 20 minutos. Compre o TER em qualquer máquina na estação de Nantes ou pelo app SNCF Connect. <strong>Bring Me The Horizon</strong> headlina o Mainstage 1 na abertura.</p>
+    <div class="highlights">
+      <span class="highlight">🚄 OUIGO Paris→Nantes (desde €15)</span>
+      <span class="highlight">🚆 TER Nantes→Clisson (~€4–6)</span>
+      <span class="highlight">🎸 Bring Me The Horizon — headliner</span>
+      <span class="highlight">⛺ Camping Village Hellfest</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Onde comprar passagem</span>
+      <a class="ticket-link tl-red" href="https://www.ouigo.com/fr/billet-train/Paris/Nantes" target="_blank" rel="noopener">OUIGO (mais barato)</a>
+      <a class="ticket-link tl-blue" href="https://www.sncf-connect.com/train/results/outward/FRPMO/FRNTE" target="_blank" rel="noopener">SNCF Connect (TGV/TER)</a>
+      <a class="ticket-link tl-gold" href="https://www.thetrainline.com/train-times/paris-to-nantes" target="_blank" rel="noopener">Trainline</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== 19-20 JUN ===== -->
+<div id="d19">
+<div class="section-label" style="color:var(--gold)">19–20 Jun</div>
+<div class="section-desc">2 dias livres — Nantes & região</div>
+<div class="day-card">
+  <div class="day-num"><div class="day-circle c-free">19</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🇫🇷 Nantes — Máquinas e cidade</span><span class="day-tag tag-free">Sex · Dia livre</span></div>
+    <div class="day-transport">🚆 TER Clisson→Nantes — 20min · comprar na máquina da estação ou app SNCF</div>
+    <p class="day-desc">O destaque absoluto é <strong>Les Machines de l'Île</strong> — mistura de Jules Verne, Leonardo da Vinci e a história industrial da cidade. O Elefante Mecânico gigante leva passageiros nas costas (~€13). A <strong>Linha Verde</strong> pintada no chão conecta 12km de pontos turísticos — siga ela pelo centro. À noite, bares no bairro Bouffay.</p>
+    <div class="highlights">
+      <span class="highlight">🐘 Les Machines de l'Île (~€13)</span>
+      <span class="highlight">🟢 Linha Verde (grátis)</span>
+      <span class="highlight">🏰 Château des Ducs de Bretagne</span>
+      <span class="highlight">🍺 Bairro Bouffay (noite)</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Atrações</span>
+      <a class="ticket-link tl-gold" href="https://www.lesmachines-nantes.fr" target="_blank" rel="noopener">Les Machines de l'Île</a>
+      <a class="ticket-link tl-blue" href="https://www.levoyageanantes.fr/le-voyage-a-nantes/" target="_blank" rel="noopener">Ligne Verte — mapa</a>
+    </div>
+  </div>
+</div>
+<div id="d20" class="day-card last-in-section">
+  <div class="day-num"><div class="day-circle c-free">20</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🌊 Saint-Nazaire ou La Baule</span><span class="day-tag tag-free">Sáb · Dia livre</span></div>
+    <div class="day-transport">🚆 TER Clisson→Saint-Nazaire (via Nantes) — ~1h · comprar no SNCF Connect ou máquina</div>
+    <p class="day-desc">Saint-Nazaire tem uma base de submarinos nazista intacta da 2ª Guerra — você entra dentro de um U-Boot real (gratuito por fora, museu pago). O estaleiro naval ainda ativo contrasta com a arquitetura pós-guerra. Se preferir praia, La Baule fica no mesmo trajeto de trem — 9km de areia fina, uma das mais belas da França.</p>
+    <div class="highlights">
+      <span class="highlight">⚓ Base de Submarinos (grátis por fora)</span>
+      <span class="highlight">🏖️ La Baule — 9km de praia</span>
+      <span class="highlight">🌊 Côte Sauvage (falésias)</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Onde comprar passagem</span>
+      <a class="ticket-link tl-blue" href="https://www.sncf-connect.com" target="_blank" rel="noopener">SNCF Connect (TER)</a>
+      <a class="ticket-link tl-gold" href="https://www.labaule-guerande.com" target="_blank" rel="noopener">La Baule — turismo</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== 21 JUN ===== -->
+<div id="d21">
+<div class="section-label" style="color:var(--hell)">21 Jun — Domingo</div>
+<div class="section-desc">Hellfest — Dia Final · The Offspring headlining</div>
+<div class="day-card last-in-section">
+  <div class="day-num"><div class="day-circle c-hell">21</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🤘 Hellfest — Encerramento</span><span class="day-tag tag-hell">Dia Final</span></div>
+    <p class="day-desc">O domingo do Hellfest 2026 é o dia punk: <strong>The Offspring</strong> fecha o festival no Mainstage 1. O dia conta com Pennywise, The Ataris e The Bones. O ingresso por dia pode ainda estar disponível na revenda oficial — vale verificar. Amanhã começa a grande travessia pelo continente.</p>
+    <div class="highlights">
+      <span class="highlight">🎸 The Offspring — headliner</span>
+      <span class="highlight">🎵 Pennywise / The Ataris / The Bones</span>
+      <span class="highlight">🌙 Última noite em Clisson</span>
+      <span class="highlight">🎒 Preparar mochila para Bruxelas</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Ingressos Hellfest</span>
+      <a class="ticket-link tl-red" href="https://tickets.hellfest.fr" target="_blank" rel="noopener">Revenda oficial Hellfest</a>
+      <a class="ticket-link tl-red" href="https://hellfest.fr/en/infos-pratiques" target="_blank" rel="noopener">Infos práticas do festival</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== BRUXELAS ===== -->
+<div id="d22">
+<div class="section-label" style="color:var(--ida)">22–23 Jun</div>
+<div class="section-desc">Bruxelas — chegada + 1 dia livre</div>
+<div class="day-card">
+  <div class="day-num"><div class="day-circle c-ida">22</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🇧🇪 Bruxelas — chegada</span><span class="day-tag tag-ida">Seg · Ida</span></div>
+    <div class="day-transport">🚄 Trem direto Nantes→Bruxelas-Midi — ~5h · reserve no SNCF Connect ou Trainline</div>
+    <p class="day-desc">Existe trem direto de Nantes para Bruxelas em ~5h. Reserve com antecedência — a opção mais barata costuma aparecer no SNCF Connect com 30–60 dias de antecedência. Chegando em Bruxelas-Midi, a Grand-Place fica a 10 minutos a pé. Explore o centro, waffle de rua (~€3) e jante no bairro Saint-Gilles com cerveja artesanal belga.</p>
+    <div class="highlights">
+      <span class="highlight">🏛️ Grand-Place (UNESCO)</span>
+      <span class="highlight">🧇 Waffle belga de rua (~€3)</span>
+      <span class="highlight">🍺 Cerveja belga artesanal</span>
+      <span class="highlight">🎨 Bairro Saint-Gilles</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Onde comprar passagem</span>
+      <a class="ticket-link tl-blue" href="https://www.sncf-connect.com/train/results/outward/FRNTE/BEBER" target="_blank" rel="noopener">SNCF Connect (Nantes→Bruxelas)</a>
+      <a class="ticket-link tl-gold" href="https://www.thetrainline.com/train-times/nantes-to-brussels" target="_blank" rel="noopener">Trainline</a>
+      <a class="ticket-link tl-green" href="https://www.virail.com/train-nantes-brussels" target="_blank" rel="noopener">Virail (comparador)</a>
+    </div>
+  </div>
+</div>
+<div id="d23" class="day-card last-in-section">
+  <div class="day-num"><div class="day-circle c-ida">23</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🇧🇪 Bruxelas — dia livre</span><span class="day-tag tag-ida">Ter · Dia livre</span></div>
+    <p class="day-desc">O roteiro de <strong>Bandes Dessinées</strong> tem murais gigantes do Tintim, Lucky Luke e Astérix pelas ruas — gratuito e incrível. O Musée Magritte é um dos melhores do mundo (~€15). As fritas belgas com mayo são obrigatórias. À noite, rue de Flandre tem vida animada e barata.</p>
+    <div class="highlights">
+      <span class="highlight">📖 Roteiro BD — murais (grátis)</span>
+      <span class="highlight">🖼️ Musée Magritte (~€15)</span>
+      <span class="highlight">⚛️ Atomium (~€18, opcional)</span>
+      <span class="highlight">🍟 Fritas belgas com mayo</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Atrações</span>
+      <a class="ticket-link tl-blue" href="https://www.fine-arts-museum.be/en/museums/magritte-museum" target="_blank" rel="noopener">Musée Magritte</a>
+      <a class="ticket-link tl-gold" href="https://www.atomium.be/en" target="_blank" rel="noopener">Atomium</a>
+      <a class="ticket-link tl-green" href="https://www.brussels.be/comic-strip-route" target="_blank" rel="noopener">Roteiro BD (mapa)</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== AMSTERDÃ ===== -->
+<div id="d24">
+<div class="section-label" style="color:var(--ida)">24–25 Jun</div>
+<div class="section-desc">Amsterdã — chegada + 1 dia livre</div>
+<div class="day-card">
+  <div class="day-num"><div class="day-circle c-ida">24</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🇳🇱 Amsterdã — chegada</span><span class="day-tag tag-ida">Qua · Ida</span></div>
+    <div class="day-transport">🚄 Eurostar Bruxelas→Amsterdã Centraal — direto ~1h50 · reserve no eurostar.com</div>
+    <p class="day-desc">O trecho mais curto e barato da rota. O Eurostar (ex-Thalys) conecta Bruxelas a Amsterdã diretamente, sem passar por Paris. Reserve no site oficial do Eurostar — preços começam em €20 reservando com antecedência. Amsterdã Centraal é uma das estações mais bonitas da Europa e fica no coração da cidade.</p>
+    <div class="highlights">
+      <span class="highlight">🚆 Eurostar direto (desde €20)</span>
+      <span class="highlight">🚲 Aluguel de bicicleta (~€10/dia)</span>
+      <span class="highlight">🏘️ Canais do Jordaan</span>
+      <span class="highlight">🛒 Albert Cuyp Market</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Onde comprar passagem</span>
+      <a class="ticket-link tl-red" href="https://www.eurostar.com/us-en/train/belgium/brussels-to-amsterdam" target="_blank" rel="noopener">Eurostar (oficial)</a>
+      <a class="ticket-link tl-gold" href="https://www.thetrainline.com/train-times/brussels-to-amsterdam" target="_blank" rel="noopener">Trainline</a>
+      <a class="ticket-link tl-blue" href="https://www.omio.com/trains/brussels/amsterdam" target="_blank" rel="noopener">Omio</a>
+    </div>
+  </div>
+</div>
+<div id="d25" class="day-card last-in-section">
+  <div class="day-num"><div class="day-circle c-ida">25</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🇳🇱 Amsterdã — dia livre</span><span class="day-tag tag-ida">Qui · Dia livre</span></div>
+    <p class="day-desc">Rijksmuseum é obrigatório — Rembrandt e Vermeer ao vivo (~€22). Van Gogh Museum fica ao lado (~€22). O Vondelpark é ótimo para descansar. À noite, Leidseplein tem preços mais razoáveis que o Rembrandtplein turístico. NDSM Wharf tem street art e cultura underground.</p>
+    <div class="highlights">
+      <span class="highlight">🎨 Rijksmuseum (~€22)</span>
+      <span class="highlight">🌻 Van Gogh Museum (~€22)</span>
+      <span class="highlight">🌿 Vondelpark (grátis)</span>
+      <span class="highlight">🌙 Leidseplein (noite)</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Atrações (reserve com antecedência — esgotam)</span>
+      <a class="ticket-link tl-red" href="https://www.rijksmuseum.nl/en/visit/tickets" target="_blank" rel="noopener">Rijksmuseum</a>
+      <a class="ticket-link tl-gold" href="https://www.vangoghmuseum.nl/en/visit/tickets-and-opening-hours" target="_blank" rel="noopener">Van Gogh Museum</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== BERLIM ===== -->
+<div id="d26">
+<div class="section-label" style="color:var(--ida)">26–27 Jun</div>
+<div class="section-desc">Berlim — chegada + 1 dia livre</div>
+<div class="day-card">
+  <div class="day-num"><div class="day-circle c-ida">26</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🇩🇪 Berlim — chegada</span><span class="day-tag tag-ida">Sex · Ida</span></div>
+    <div class="day-transport">🚄 ICE Amsterdã→Berlim Hbf — ~6h · comprar no DB (Deutsche Bahn) com antecedência</div>
+    <p class="day-desc">6h de ICE confortável com wi-fi e tomadas. O site do DB (Deutsche Bahn) tem as melhores tarifas para este trecho — preços sobem muito próximo à data. East Side Gallery (1,3km de muro com murais) grátis. Memorial do Holocausto grátis. Döner em Kreuzberg por ~€4–5.</p>
+    <div class="highlights">
+      <span class="highlight">🧱 East Side Gallery (grátis)</span>
+      <span class="highlight">✡️ Memorial do Holocausto (grátis)</span>
+      <span class="highlight">🥙 Döner em Kreuzberg (~€4)</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Onde comprar passagem</span>
+      <a class="ticket-link tl-red" href="https://www.bahn.de/buchung/fahrplan/suche#sts=true&so=Amsterdam+Centraal&zo=Berlin+Hbf&kl=2&r=13:16:KLASSENLOS:1&sot=ORT&zot=ORT&mot=ICE" target="_blank" rel="noopener">Deutsche Bahn (DB) — oficial</a>
+      <a class="ticket-link tl-gold" href="https://www.thetrainline.com/train-times/amsterdam-to-berlin" target="_blank" rel="noopener">Trainline</a>
+      <a class="ticket-link tl-blue" href="https://www.omio.com/trains/amsterdam/berlin" target="_blank" rel="noopener">Omio</a>
+    </div>
+  </div>
+</div>
+<div id="d27" class="day-card last-in-section">
+  <div class="day-num"><div class="day-circle c-ida">27</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🇩🇪 Berlim — dia livre</span><span class="day-tag tag-ida">Sáb · Dia livre</span></div>
+    <p class="day-desc">Sábado em Berlim é especial. <strong>Mauerpark</strong> tem mercado de pulgas de manhã e karaokê ao ar livre à tarde — grátis e inesquecível. A Ilha dos Museus tem o Pergamon e o Neues Museum. À noite, Neukölln e Kreuzberg têm a cena alternativa mais barata e autêntica da Europa.</p>
+    <div class="highlights">
+      <span class="highlight">🛒 Mauerpark — mercado + karaokê (grátis)</span>
+      <span class="highlight">🏛️ Ilha dos Museus (~€18)</span>
+      <span class="highlight">🎶 Neukölln (noite)</span>
+      <span class="highlight">🍺 Biergarten ao ar livre</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Atrações</span>
+      <a class="ticket-link tl-blue" href="https://www.smb.museum/en/museums-institutions/pergamonmuseum/home/" target="_blank" rel="noopener">Pergamon Museum</a>
+      <a class="ticket-link tl-gold" href="https://www.berlin.de/en/museums/3109054-3104052-neues-museum.en.html" target="_blank" rel="noopener">Neues Museum</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== PRAGA / CRACÓVIA / BUDAPESTE ===== -->
+<div id="d28">
+<div class="section-label" style="color:var(--ida)">28–30 Jun</div>
+<div class="section-desc">Praga · Cracóvia · Budapeste — 1 noite em cada</div>
+<div class="day-card">
+  <div class="day-num"><div class="day-circle c-ida">28</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🇨🇿 Praga — 1 noite</span><span class="day-tag tag-ida">Dom · Ida</span></div>
+    <div class="day-transport">🚌 FlixBus Berlim→Praga (~4h30, desde €5) ou trem IC (~4h30, €20–35)</div>
+    <p class="day-desc">FlixBus tem preços imbatíveis neste trecho — às vezes desde €5 reservando com antecedência. O trem IC é mais confortável mas mais caro. Chegue de manhã: Castelo de Praga antes das 9h, Ponte Carlos ao fim do dia. Žižkov para jantar foge das armadilhas. Cerveja Pilsner a ~€1,50 em qualquer bar local.</p>
+    <div class="highlights">
+      <span class="highlight">🏰 Castelo de Praga (manhã)</span>
+      <span class="highlight">🌉 Ponte Carlos (entardecer)</span>
+      <span class="highlight">🍺 Cerveja €1,50 em Žižkov</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Onde comprar passagem</span>
+      <a class="ticket-link tl-green" href="https://www.flixbus.de/busverbindung/berlin/prag" target="_blank" rel="noopener">FlixBus (mais barato)</a>
+      <a class="ticket-link tl-red" href="https://www.bahn.de/buchung/fahrplan/suche#sts=true&so=Berlin+Hbf&zo=Praha+hl.n.&kl=2" target="_blank" rel="noopener">Deutsche Bahn (IC)</a>
+      <a class="ticket-link tl-blue" href="https://www.omio.com/trains/berlin/prague" target="_blank" rel="noopener">Omio (comparar)</a>
+    </div>
+  </div>
+</div>
+<div id="d29" class="day-card">
+  <div class="day-num"><div class="day-circle c-ida">29</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🇵🇱 Cracóvia — 1 noite</span><span class="day-tag tag-ida">Seg · Ida</span></div>
+    <div class="day-transport">🚌 RegioJet Praga→Cracóvia — ~7h · comprar no regiojet.com (wi-fi + café a bordo)</div>
+    <p class="day-desc"><strong>RegioJet</strong> é a operadora certa neste trecho — ônibus confortável com wi-fi, café gratuito e tomadas. Reserve no site deles. Wawel Castle ao chegar. Kazimierz para a noite — animado e barato. Pierogi por €4 no mercado. À noite, trem noturno para Budapeste.</p>
+    <div class="highlights">
+      <span class="highlight">🏰 Wawel Castle</span>
+      <span class="highlight">🕍 Kazimierz — noite animada</span>
+      <span class="highlight">🥟 Pierogi (~€4)</span>
+      <span class="highlight">🌙 Trem noturno para Budapeste</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Onde comprar passagem</span>
+      <a class="ticket-link tl-red" href="https://www.regiojet.com/connections/?departureDate=2026-06-29&fromLocationId=10204003&fromLocationType=CITY&toLocationId=10202001&toLocationType=CITY" target="_blank" rel="noopener">RegioJet (direto)</a>
+      <a class="ticket-link tl-green" href="https://www.flixbus.com/bus/prague-krakow" target="_blank" rel="noopener">FlixBus (alternativa)</a>
+      <a class="ticket-link tl-blue" href="https://www.omio.com/buses/prague/krakow" target="_blank" rel="noopener">Omio (comparar)</a>
+    </div>
+  </div>
+</div>
+<div id="d30" class="day-card last-in-section">
+  <div class="day-num"><div class="day-circle c-ida">30</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🇭🇺 Budapeste — 1 dia</span><span class="day-tag tag-ida">Ter · Ida</span></div>
+    <div class="day-transport">🌙 Trem noturno Cracóvia→Budapeste — ~10h · comprar no MAV (jegy.mav.hu) ou Trainline</div>
+    <p class="day-desc">Chega de manhã com o dia inteiro. Fisherman's Bastion e Buda Castle cedo. À tarde, thermal spa Széchenyi ou Rudas (~€15–20). À noite, ônibus noturno para Sofia. <strong>Atenção ao dia da semana:</strong> o Citylines opera BUD→SOF nas terças (dia certo!), chegando em Sofia na manhã de quarta. Verifique horários no site deles.</p>
+    <div class="highlights">
+      <span class="highlight">🏰 Buda Castle + Fisherman's Bastion</span>
+      <span class="highlight">♨️ Thermal Spa (~€15–20)</span>
+      <span class="highlight">🌙 Ônibus Citylines para Sofia (terça)</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Onde comprar passagem — trem noturno Cracóvia→Budapeste</span>
+      <a class="ticket-link tl-red" href="https://jegy.mav.hu" target="_blank" rel="noopener">MÁV (ferroviária húngara)</a>
+      <a class="ticket-link tl-gold" href="https://www.thetrainline.com/train-times/krakow-to-budapest" target="_blank" rel="noopener">Trainline</a>
+      <a class="ticket-link tl-blue" href="https://www.omio.com/trains/krakow/budapest" target="_blank" rel="noopener">Omio</a>
+      <span class="tickets-label" style="margin-top:0.5rem">Onde comprar — ônibus noturno Budapeste→Sofia</span>
+      <a class="ticket-link tl-green" href="https://www.citylines.eu/en/timetable/budapest-sofia" target="_blank" rel="noopener">Citylines (terças)</a>
+      <a class="ticket-link tl-green" href="https://www.flixbus.com/bus/budapest-sofia" target="_blank" rel="noopener">FlixBus (sex/dom)</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SOFIA CHEGADA ===== -->
+<div id="d01">
+<div class="section-label" style="color:var(--ida)">01 Jul — Quarta</div>
+<div class="section-desc">Sofia — chegada · Fim do roteiro de ida</div>
+<div class="day-card last-in-section">
+  <div class="day-num"><div class="day-circle c-ida">01</div></div>
+  <div class="day-body">
+    <div class="day-header"><span class="day-title">🇧🇬 Sofia — chegada</span><span class="day-tag tag-ida">Qua</span></div>
+    <p class="day-desc">Chegada de manhã em Sofia diretamente de Budapeste — acorda na capital búlgara. A partir daqui, a programação na Bulgária é por sua conta! Sofia, Plovdiv, o Mosteiro de Rila (UNESCO) e Veliko Tarnovo são os destaques que já estávamos planejando. O Free Sofia Tour sai às 11h e 18h todo dia — ótimo ponto de partida. Banitsa (€1) e Zagorka gelada para receber a Bulgária.</p>
+    <div class="highlights">
+      <span class="highlight">🌙 Chegada de ônibus noturno</span>
+      <span class="highlight">⛪ Alexander Nevski (grátis)</span>
+      <span class="highlight">🏛️ Ruínas de Serdica</span>
+      <span class="highlight">🚶 Free Sofia Tour (11h ou 18h)</span>
+      <span class="highlight">🥐 Banitsa (€1)</span>
+      <span class="highlight">🎒 Bulgária — por sua conta!</span>
+    </div>
+    <div class="tickets">
+      <span class="tickets-label">Recursos úteis em Sofia</span>
+      <a class="ticket-link tl-green" href="https://freesofiatour.com" target="_blank" rel="noopener">Free Sofia Tour</a>
+      <a class="ticket-link tl-blue" href="https://www.hostelworld.com/search#where=Sofia&checkInDate=2026-07-01" target="_blank" rel="noopener">Hostels em Sofia</a>
+      <a class="ticket-link tl-gold" href="https://www.bdz.bg/en" target="_blank" rel="noopener">BDZ (ferroviária búlgara)</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TIPS -->
+<div class="tips-box">
+  <h2>Dicas de Compra</h2>
+  <div class="tips-grid">
+    <div class="tip-item">
+      <div class="tip-title">✈️ Voo Recife→Paris</div>
+      <div class="tip-text">TAP via Lisboa é a melhor rota — Lisboa tem voos frequentes para Paris CDG e o preço costuma ser menor. Reserve com 3–4 meses de antecedência. Compare no Google Flights e Skyscanner.</div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">🚄 OUIGO vs TGV</div>
+      <div class="tip-text">Para Paris→Nantes, o OUIGO é o TGV low-cost da SNCF — mesma velocidade, preço muito menor (desde €15 vs €40+ no TGV). A diferença: menos espaço de bagagem e sem reembolso. Reserve em ouigo.com.</div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">🚌 RegioJet vs FlixBus</div>
+      <div class="tip-text">RegioJet (Praga→Cracóvia) oferece wi-fi estável, café gratuito e tomadas — melhor custo-benefício que FlixBus neste trecho. Para Berlim→Praga, FlixBus costuma ser mais barato.</div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">🌙 Trens noturnos</div>
+      <div class="tip-text">O noturno Cracóvia→Budapeste economiza uma noite de hostel (~€15–25). Compre no MÁV (jegy.mav.hu) com antecedência — os preços baixos somem rápido neste trecho.</div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">🇧🇬 BUD→SOF terça-feira</div>
+      <div class="tip-text">Você chega a Budapeste na terça 30/06. O Citylines opera BUD→SOF nas terças. Verifique e reserve no citylines.eu com antecedência — são poucos ônibus por semana e enchem.</div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">🎟️ Amsterdã — reserve antes</div>
+      <div class="tip-text">Rijksmuseum e Van Gogh Museum esgotam semanas antes em alta temporada. Reserve online assim que souber as datas — entrada no dia não costuma estar disponível em junho/julho.</div>
+    </div>
+  </div>
+</div>
+
+</div>
+<footer>Roteiro elaborado para junho–julho de 2026 · Preços estimados · Verifique sempre horários e disponibilidade antes de comprar</footer>
+
+<script>
+  function goTo(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 20, behavior: 'smooth' });
+  }
+
+  const btn = document.getElementById('backBtn');
+  const table = document.getElementById('cronograma');
+
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', table.getBoundingClientRect().bottom < 0);
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
+</body>
+</html>
